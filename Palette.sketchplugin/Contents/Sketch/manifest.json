@@ -1,0 +1,17 @@
+{
+    "name" : "🎨",
+    "identifier" : "com.materikab.palette",
+    "version" : "0.0.1",
+    "description" : "Gather all the colors, used in your Sketch-file, on one page.",
+    "authorEmail" : "mattias@materikab.com",
+    "author" : "Mattias Eriksson",
+    "commands" : [
+      {
+        "script" : "index.js",
+        "handler" : "generatePalette",
+        "shortcut" : "control cmd s",
+        "name" : "Generate palette",
+        "identifier" : "com.materikab.generate_palette"
+      }
+    ]
+}
