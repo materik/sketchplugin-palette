@@ -45,7 +45,7 @@ Palette.prototype.createColorArtboards = function() {
     var pages = this.getAllPages()
     for (var i = 0; i < pages.length; i++) {
         var page = pages[i]
-        page.findFills()
+        page.findColors()
 
         var artboard = this.createColorArtboard(page)
         artboard.frame().setY(y)
