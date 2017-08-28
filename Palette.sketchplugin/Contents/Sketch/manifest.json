@@ -1,8 +1,8 @@
 {
     "name" : "🎨",
     "identifier" : "com.materikab.palette",
-    "version" : "0.0.1",
-    "description" : "Gather all the colors, used in your Sketch-file, on one page.",
+    "version" : "0.1.0",
+    "description" : "Simple *Sketch*-plugin for finding all the colors in your *Sketch*-file and making it easy to quickly replace them.",
     "authorEmail" : "mattias@materikab.com",
     "author" : "Mattias Eriksson",
     "commands" : [
