@@ -8,25 +8,36 @@ Color.fromObject = function(object) {
     return new Color("#" + object.immutableModelObject().hexValue(), object);
 }
 
+Color.fromObjects = function(objects) {
+	return objects.map(function(object) { return Color.fromObject(object) })
+}
+
 function Fill(type, colors) {
-	this.type = type
-	this.colors = colors
+	this.type = type || -1;
+	this.colors = colors || [];
 }
 
 Fill.fromObject = function(object) {
 	var type = object.fillType()
+	if (!object.isEnabled()) {
+		log("~ Fill is not enabled")
+		return new Fill();
+	}
 	switch (type) {
 		case 0: // Solid
+			log("~ Found a solid color")
 			return new Fill(type, [object.color()]);
 		case 1: // Gradient
+			log("~ Found a gradient color")
 			var gradient = Gradient.fromObject(object.gradient());
 			return new Fill(type, gradient.colors);
 		default: // Unknown
-			return new Fill(-1, []);
+			log("~ Found an unknown color (" + type + ")")
+			return new Fill(type);
 	}
 }
 
-Fill.prototype.hexes = function() {
+Fill.hexes = function(colors) {
 	return this.colors.map(function(object) { return Color.fromObject(object).hex })
 }
 
@@ -40,6 +51,13 @@ function Frame(x, y, width, height) {
 Frame.fromObject = function(object) {
     var frame = object.frame();
     return new Frame(frame.x(), frame.y(), frame.width(), frame.height());
+}
+
+Frame.prototype.apply = function(object) {
+    object.frame().setX(this.x || 0)
+    object.frame().setY(this.y || 0)
+    object.frame().setWidth(this.width || 1)
+    object.frame().setHeight(this.height || 1)
 }
 
 Frame.prototype.bottom = function() {

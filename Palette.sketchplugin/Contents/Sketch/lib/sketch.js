@@ -12,6 +12,7 @@ Sketch.prototype.addBorderToLayer = function(layer, hex, thickness) {
 
 Sketch.prototype.addFillToLayer = function(layer, hex) {
     var fill = layer.style().addStylePartOfType(0);
+    fill.setFillType(0);
     fill.color = new Color(hex).color
     layer.setName(hex);
     return layer;
@@ -64,6 +65,29 @@ Sketch.prototype.createRectangle = function(artboard, frame) {
 Sketch.prototype.createPage = function(name) {
     var page = this.doc.addBlankPage();
     page.setName(name);
+    return page;
+}
+
+Sketch.prototype.deletePage = function(page) {
+    this.alert("Delete page: \"" + page.name() + "\"")
+
+    this.doc.removePage(page)
+}
+
+Sketch.prototype.getArtboard = function(page, name) {
+    for (var i = 0; i < page.artboards().count(); i++) {
+        var artboard = page.artboards().objectAtIndex(i);
+        if (artboard.name() == name) {
+            return artboard;
+        }
+    }
+}
+
+Sketch.prototype.getOrCreateArtboard = function(page, name) {
+    var artboard = this.getArtboard(page, name);
+    if (artboard == null) {
+        return this.createArtboard(page, name);
+    }
     return page;
 }
 

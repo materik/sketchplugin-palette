@@ -9,7 +9,8 @@ Util.convertArrayToList = function(array) {
     	if (item.length == 0) {
     		continue;
     	} else if (item.length > 0) {
-            list.push(item.firstObject());
+            var newList = Util.convertArrayToList(item);
+            list = list.concat(newList);
         } else {
         	list.push(item);
         }

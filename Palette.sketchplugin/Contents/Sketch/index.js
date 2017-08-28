@@ -6,6 +6,7 @@
 @import 'lib/util.js';
 
 var config = {
+
 	border: {
 		hex: "#EBF5DF",
 		thickness: 5,
@@ -14,9 +15,23 @@ var config = {
 	size: 100,
 	pageName: "🎨",
 	maxNumberOfColumns: 3,
+	artboardNames: {
+		colors: "🎨 (^⌘S)",
+		replace: "↔️ (^⌘R)",
+	},
+
+	getOffset: function(index) {
+    	return config.margin + index * (config.size + config.margin);
+	},
+	
 }
 
 var generatePalette = function(context) {
 	var palette = new Palette(context, config);
 	palette.generate();
+}
+
+var replacePalette = function(context) {
+	var palette = new Palette(context, config);
+	palette.replace();
 }

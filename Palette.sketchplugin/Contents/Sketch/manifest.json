@@ -12,6 +12,13 @@
         "shortcut" : "control cmd s",
         "name" : "Generate palette",
         "identifier" : "com.materikab.generate_palette"
+      },
+      {
+        "script" : "index.js",
+        "handler" : "replacePalette",
+        "shortcut" : "control cmd r",
+        "name" : "Replace palette",
+        "identifier" : "com.materikab.replace_palette"
       }
     ]
 }
