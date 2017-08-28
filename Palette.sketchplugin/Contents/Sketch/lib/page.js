@@ -5,7 +5,6 @@ function Page(context, page) {
 	this.sketch = new Sketch(context);
 
 	this.colors = []
-    this._fills = []
     this.name = page.name()
     this._page = page
 }
@@ -29,15 +28,31 @@ Page.prototype.findColors = function() {
     return this.colors
 }
 
+Page.prototype.replaceColors = function(fromColor, toColor) {
+    this.sketch.alert("Replacing colors in \"" + this.name + "\"...")
+
+    var fills = this.__find("fills")
+    fills = fills.concat(this.__find("borders"))
+
+    for (var i = 0; i < fills.length; i++) {
+        var fill = fills[i];
+        Fill.replace(fill, fromColor, toColor);
+    }
+}
+
 Page.prototype._find = function(keyword) {
     this.sketch.alert("Finding " + keyword + " in \"" + this.name + "\"...")
 
+    var fills = this.__find(keyword)
+    fills = fills.map(function(fill) { return Fill.fromObject(fill) })
+
+    this.sketch.alert("Found " + fills.length + " " + keyword + " in \"" + this.name + "\"...");
+
+    return fills
+}
+
+Page.prototype.__find = function(keyword) {
     var layers = this._page.children();
     var objects = layers.valueForKeyPath("@distinctUnionOfObjects.style." + keyword);
-    var fills = Util.convertArrayToList(objects);
-    
-    this.fills = fills.map(function(fill) { return Fill.fromObject(fill) })
-    this.sketch.alert("Found " + this.fills.length + " " + keyword + " in \"" + this.name + "\"...");
-
-    return this.fills
+    return Util.convertArrayToList(objects);
 }

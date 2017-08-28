@@ -25,6 +25,8 @@ Palette.prototype.replace = function() {
     this.sketch.alert("Replace palette...");
 
     this._findReplaceColors();
+    this._replaceColors(this._replaceColor1, this._replaceColor2)
+    this.generate()
 
     this.sketch.alert("Done replacing palette...");
 }
@@ -179,4 +181,13 @@ Palette.prototype._recreatePelettePage = function() {
 
     this.sketch.deletePage(this._palettePage)
     this._palettePage = this._getPalettePage()
+}
+
+Palette.prototype._replaceColors = function(fromColor, toColor) {
+    var pages = this._getAllPages();
+
+    for (var i = 0; i < pages.length; i++) {
+        var page = pages[i];
+        page.replaceColors(fromColor, toColor);
+    }
 }
